@@ -1,0 +1,58 @@
+﻿@model FinanzasPersonalesWeb.Models.Deudas
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Deudas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Monedas.MonedaDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Monedas.MonedaDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeudaDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeudaDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeudaMonto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeudaMonto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeudaEstado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeudaEstado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeudaFhCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeudaFhCreacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DeudaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

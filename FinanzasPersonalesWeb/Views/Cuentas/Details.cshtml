@@ -1,0 +1,50 @@
+﻿@model FinanzasPersonalesWeb.Models.Cuentas
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cuentas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Monedas.MonedaDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Monedas.MonedaDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CuentaDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CuentaDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CuentaMontoInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CuentaMontoInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CuentaFhCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CuentaFhCreacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CuentaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

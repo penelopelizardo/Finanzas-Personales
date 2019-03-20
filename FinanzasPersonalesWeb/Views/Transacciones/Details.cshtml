@@ -1,0 +1,74 @@
+﻿@model FinanzasPersonalesWeb.Models.Transacciones
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transacciones</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TransaccionesTipos.TranTiposDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransaccionesTipos.TranTiposDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TranDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TranDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TranMonto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TranMonto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TranFecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TranFecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TranRecurrente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TranRecurrente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TranRecurrenteFhLimite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TranRecurrenteFhLimite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TranCuenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TranCuenta)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TranId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

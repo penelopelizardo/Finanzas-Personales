@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FinanzasPersonalesWeb.Models.Presupuesto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Monedas.MonedaDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PresupuestoDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PresupuestoMonto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PresupuestoFhActualizacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PresupuestoFhCreacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Monedas.MonedaDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresupuestoDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresupuestoMonto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresupuestoFhActualizacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresupuestoFhCreacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PresupuestoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PresupuestoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PresupuestoId })
+        </td>
+    </tr>
+}
+
+</table>

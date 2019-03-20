@@ -1,0 +1,26 @@
+﻿@model FinanzasPersonalesWeb.Models.TransaccionesTipos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TransaccionesTipos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TranTiposDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TranTiposDescripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TranTiposId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

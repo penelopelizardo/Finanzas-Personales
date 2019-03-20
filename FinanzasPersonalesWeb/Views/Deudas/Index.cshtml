@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FinanzasPersonalesWeb.Models.Deudas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Monedas.MonedaDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeudaDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeudaMonto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeudaEstado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeudaFhCreacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Monedas.MonedaDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeudaDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeudaMonto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeudaEstado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeudaFhCreacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DeudaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DeudaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DeudaId })
+        </td>
+    </tr>
+}
+
+</table>

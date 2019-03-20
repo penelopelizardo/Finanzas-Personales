@@ -1,0 +1,64 @@
+﻿@model FinanzasPersonalesWeb.Models.Deudas
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Deudas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Monedas.MonedaDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Monedas.MonedaDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeudaDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeudaDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeudaMonto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeudaMonto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeudaEstado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeudaEstado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeudaFhCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeudaFhCreacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -29,5 +29,7 @@ namespace FinanzasPersonalesWeb.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<FinanzasPersonalesWeb.Models.Ingresos> Ingresos { get; set; }
     }
 }

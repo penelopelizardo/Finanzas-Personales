@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FinanzasPersonalesWeb.Models.PresupuestoItems>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Presupuesto.PresupuestoDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PItemDescripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PItemMonto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PItemFhActualizacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Presupuesto.PresupuestoDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PItemDescripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PItemMonto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PItemFhActualizacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PItemId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PItemId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PItemId })
+        </td>
+    </tr>
+}
+
+</table>

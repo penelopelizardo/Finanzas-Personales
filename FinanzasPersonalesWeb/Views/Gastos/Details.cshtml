@@ -1,0 +1,74 @@
+﻿@model FinanzasPersonalesWeb.Models.Gastos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Gastos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cuentas.CuentaDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cuentas.CuentaDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TiposIngresos.TipoIngresoDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TiposIngresos.TipoIngresoDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GastoDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GastoDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GastoMonto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GastoMonto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GastoFecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GastoFecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GastoRecurrente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GastoRecurrente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GastoRecurrenteFhLimite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GastoRecurrenteFhLimite)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GastoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
