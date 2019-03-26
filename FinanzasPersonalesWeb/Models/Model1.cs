@@ -22,7 +22,6 @@ namespace FinanzasPersonalesWeb.Models
         public virtual DbSet<TiposGastos> TiposGastos { get; set; }
         public virtual DbSet<TiposIngresos> TiposIngresos { get; set; }
         public virtual DbSet<Transacciones> Transacciones { get; set; }
-        public virtual DbSet<TransaccionesTipos> TransaccionesTipos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -132,14 +131,6 @@ namespace FinanzasPersonalesWeb.Models
                 .Property(e => e.TranMonto)
                 .HasPrecision(8, 2);
 
-            modelBuilder.Entity<TransaccionesTipos>()
-                .Property(e => e.TranTiposDescripcion)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TransaccionesTipos>()
-                .HasMany(e => e.Transacciones)
-                .WithOptional(e => e.TransaccionesTipos)
-                .HasForeignKey(e => e.TranTipo);
         }
     }
 }

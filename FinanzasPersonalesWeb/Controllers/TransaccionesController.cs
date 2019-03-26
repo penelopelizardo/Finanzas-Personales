@@ -17,81 +17,83 @@ namespace FinanzasPersonalesWeb.Controllers
         // GET: Transacciones
         public ActionResult Index()
         {
-            var transacciones = db.Transacciones.Include(t => t.TransaccionesTipos).Include(t=> t.Cuentas).ToList();
+            var transacciones = db.Transacciones.Include(t => t.Cuentas).ToList();
             return View(transacciones);
         }
-
-        // GET: Transacciones/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Transacciones transacciones = db.Transacciones.Find(id);
-            if (transacciones == null)
-            {
-                return HttpNotFound();
-            }
-            return View(transacciones);
-        }
-
-        // GET: Transacciones/Create
-        public ActionResult Create()
-        {
-            ViewBag.TranTipo = new SelectList(db.TransaccionesTipos, "TranTiposId", "TranTiposDescripcion");
-            ViewBag.TranCuenta = new SelectList(db.Cuentas, "CuentaId", "CuentaDescripcion");
-            return View();
-        }
+             
 
         // POST: Transacciones/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Transacciones transacciones)
+        public JsonResult Create(Transacciones transacciones)
         {
+            transacciones.TranRecurrente = false;
+            transacciones.TranFecha = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Transacciones.Add(transacciones);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
             }
 
-            ViewBag.TranTipo = new SelectList(db.TransaccionesTipos, "TranTiposId", "TranTiposDescripcion", transacciones.TranTipo);
-            ViewBag.TranCuenta = new SelectList(db.Cuentas, "CuentaId", "CuentaDescripcion", transacciones.TranCuenta);
-            return View(transacciones);
+            return Json(transacciones);
         }
 
         // GET: Transacciones/Edit/5
-        public ActionResult Edit(int? id)
+        public JsonResult Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transacciones transacciones = db.Transacciones.Find(id);
+            //Transacciones transacciones = db.Transacciones.Find(id);
+            var transacciones = (from t in db.Transacciones
+                                 where t.TranId == id
+                                 select t
+                                 ).ToList().Select(obj => new Transacciones
+                                 {
+                                    TranDescripcion = obj.TranDescripcion,
+                                     TranFecha=  obj.TranFecha,
+                                     TranMonto= obj.TranMonto,
+                                     TranRecurrente= obj.TranRecurrente,
+                                     TranRecurrenteFhLimite =  obj.TranRecurrenteFhLimite,
+                                     TranTipo = obj.TranTipo,
+                                     TranCuenta = obj.TranCuenta
+
+                                 }).FirstOrDefault();
+
             if (transacciones == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
             }
-            ViewBag.TranTipo = new SelectList(db.TransaccionesTipos, "TranTiposId", "TranTiposDescripcion", transacciones.TranTipo);
-            return View(transacciones);
+            return Json(transacciones, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Transacciones/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Transacciones transacciones)
+        public JsonResult Edit(Transacciones transacciones)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(transacciones).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            ViewBag.TranTipo = new SelectList(db.TransaccionesTipos, "TranTiposId", "TranTiposDescripcion", transacciones.TranTipo);
-            return View(transacciones);
+            return Json(transacciones);
         }
-             
+
+        public JsonResult GetCuentas()
+        {
+            var resultado = (from t in db.Cuentas
+                             select t
+                          ).ToList().Select(obj => new Cuentas
+                          {
+                              CuentaId = obj.CuentaId,
+                              CuentaDescripcion = obj.CuentaDescripcion
+                          }).ToList();
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

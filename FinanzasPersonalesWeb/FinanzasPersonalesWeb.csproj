@@ -213,7 +213,6 @@
     <Compile Include="Controllers\TiposGastosController.cs" />
     <Compile Include="Controllers\TiposIngresosController.cs" />
     <Compile Include="Controllers\TransaccionesController.cs" />
-    <Compile Include="Controllers\TransaccionesTiposController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,7 +230,6 @@
     <Compile Include="Models\TiposGastos.cs" />
     <Compile Include="Models\TiposIngresos.cs" />
     <Compile Include="Models\Transacciones.cs" />
-    <Compile Include="Models\TransaccionesTipos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -259,18 +257,18 @@
     <Content Include="Content\DataTables-1.10.18\images\sort_both.png" />
     <Content Include="Content\DataTables-1.10.18\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.10.18\images\sort_desc_disabled.png" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.bootstrap.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.bootstrap.min.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.bootstrap4.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.bootstrap4.min.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.foundation.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.foundation.min.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.jqueryui.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.jqueryui.min.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.semanticui.js" />
-    <Content Include="Content\DataTables-1.10.18\js\dataTables.semanticui.min.js" />
-    <Content Include="Content\DataTables-1.10.18\js\jquery.dataTables.js" />
-    <Content Include="Content\DataTables-1.10.18\js\jquery.dataTables.min.js" />
+    <Content Include="Scripts\Datatables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\Datatables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\Datatables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\Datatables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\Datatables\dataTables.foundation.js" />
+    <Content Include="Scripts\Datatables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\Datatables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\Datatables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\Datatables\dataTables.semanticui.js" />
+    <Content Include="Scripts\Datatables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\Datatables\jquery.dataTables.js" />
+    <Content Include="Scripts\Datatables\jquery.dataTables.min.js" />
     <Content Include="Content\datatables.css" />
     <Content Include="Content\datatables.min.css" />
     <Content Include="favicon.ico" />
@@ -297,8 +295,8 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Scripts\datatables.js" />
-    <Content Include="Scripts\datatables.min.js" />
+    <Content Include="Scripts\Datatables\datatables.js" />
+    <Content Include="Scripts\Datatables\datatables.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -309,7 +307,9 @@
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\FP Scripts\FillingDropdowns.js" />
     <Content Include="Scripts\FP Scripts\General.js" />
+    <Content Include="Scripts\FP Scripts\Transacciones\Transacciones.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />

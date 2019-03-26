@@ -28,8 +28,6 @@ namespace FinanzasPersonalesWeb.Models
         [ForeignKey("Cuentas")]
         public int? TranCuenta { get; set; }
 
-        public virtual TransaccionesTipos TransaccionesTipos { get; set; }
-
         public virtual Cuentas Cuentas { get; set; }
     }
 }
