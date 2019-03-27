@@ -109,9 +109,11 @@
             <div class="modal-body">
                 <!-- Modal body -->
                 <form id="TransForm">
+                    <input type="hidden" name="TranId" value="" />
+
                     <div class="form-row col-md-12" style="padding-bottom: 5px;">
                         <label class="col-md-6">Tipo de transacción</label>
-                        <select class="custom-select col-md-6 transacciones" name="TranTipo" >
+                        <select class="custom-select col-md-6 transacciones inputState" name="TranTipo">
                             <option selected>--Seleccione--</option>
                             <option value="1">GASTOS</option>
                             <option value="2">INGRESOS</option>
@@ -120,21 +122,23 @@
 
                     <div class="form-row col-md-12" style="padding-bottom: 5px;">
                         <label class="col-md-3">Monto</label>
-                        <input type="text" class="form-control col-md-9" name="TranMonto" />
+                        <input type="text" class="form-control col-md-9 inputState" name="TranMonto" />
                     </div>
 
                     <div class="form-row col-md-12" style="padding-bottom: 5px;">
                         <label class="col-md-6">Descripción</label>
-                        <input type="text" class="form-control col-md-6" name="TranDescripcion"/>
+                        <input type="text" class="form-control col-md-6 inputState" name="TranDescripcion" />
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-6">Fecha</label>
+                        <input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranFecha" data-language='es'/>
                     </div>
 
                     <div class="form-row col-md-12" style="padding-bottom: 5px;">
                         <label class="col-md-3">Cuenta</label>
-                        <select class="custom-select  col-md-9 cuenta" name="TranCuenta">
+                        <select class="custom-select  col-md-9 cuenta inputState" name="TranCuenta">
                             <option selected>--Seleccione--</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
                         </select>
                     </div>
 
@@ -143,12 +147,12 @@
                             <label class="form-check-label col-md-8">
                                 Es recurrente?
                             </label>
-                            <input type="checkbox" class="form-check-input col-md-2" value="" name="TranRecurrente">
+                            <input type="checkbox" class="form-check-input col-md-2 inputState" value="" name="TranRecurrente">
                         </div>
 
                         <div class="form-row col-md-6" style="padding-bottom: 5px;">
                             <label class="col-md-6">Día de corte</label>
-                            <input type="text" class="form-control col-md-6" name="TranRecurrenteFhLimite"/>
+                            <input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranRecurrenteFhLimite" data-language='es' />
                         </div>
                     </div>
 

@@ -234,6 +234,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\air-datepicker\datepicker.css" />
+    <Content Include="Content\air-datepicker\datepicker.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -257,6 +259,23 @@
     <Content Include="Content\DataTables-1.10.18\images\sort_both.png" />
     <Content Include="Content\DataTables-1.10.18\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.10.18\images\sort_desc_disabled.png" />
+    <Content Include="Scripts\air-datepicker\datepicker.js" />
+    <Content Include="Scripts\air-datepicker\datepicker.min.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.cs.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.da.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.de.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.en.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.es.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.fi.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.fr.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.hu.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.nl.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.pl.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.pt-BR.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.pt.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.ro.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.sk.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.zh.js" />
     <Content Include="Scripts\Datatables\dataTables.bootstrap.js" />
     <Content Include="Scripts\Datatables\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\Datatables\dataTables.bootstrap4.js" />
@@ -407,10 +426,6 @@
     <Content Include="Views\TransaccionesTipos\Details.cshtml" />
     <Content Include="Views\TransaccionesTipos\Edit.cshtml" />
     <Content Include="Views\TransaccionesTipos\Index.cshtml" />
-    <Content Include="Views\Transacciones\Create.cshtml" />
-    <Content Include="Views\Transacciones\Delete.cshtml" />
-    <Content Include="Views\Transacciones\Details.cshtml" />
-    <Content Include="Views\Transacciones\Edit.cshtml" />
     <Content Include="Views\Transacciones\Index.cshtml" />
     <Content Include="Views\Monedas\Create.cshtml" />
     <Content Include="Views\Monedas\Delete.cshtml" />

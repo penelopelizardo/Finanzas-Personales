@@ -20,15 +20,15 @@ namespace FinanzasPersonalesWeb.Controllers
             var transacciones = db.Transacciones.Include(t => t.Cuentas).ToList();
             return View(transacciones);
         }
-             
+
 
         // POST: Transacciones/Create
         [HttpPost]
         public JsonResult Create(Transacciones transacciones)
         {
             transacciones.TranRecurrente = false;
-            transacciones.TranFecha = DateTime.Now;
-
+            //transacciones.TranFecha = DateTime.Now;
+                   
             if (ModelState.IsValid)
             {
                 db.Transacciones.Add(transacciones);
@@ -40,9 +40,9 @@ namespace FinanzasPersonalesWeb.Controllers
         }
 
         // GET: Transacciones/Edit/5
-        public JsonResult Edit(int? id)
+        public JsonResult GetTransactionsById(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -52,11 +52,12 @@ namespace FinanzasPersonalesWeb.Controllers
                                  select t
                                  ).ToList().Select(obj => new Transacciones
                                  {
-                                    TranDescripcion = obj.TranDescripcion,
-                                     TranFecha=  obj.TranFecha,
-                                     TranMonto= obj.TranMonto,
-                                     TranRecurrente= obj.TranRecurrente,
-                                     TranRecurrenteFhLimite =  obj.TranRecurrenteFhLimite,
+                                     TranId = obj.TranId,
+                                     TranDescripcion = obj.TranDescripcion,
+                                     TranFecha = obj.TranFecha,
+                                     TranMonto = obj.TranMonto,
+                                     TranRecurrente = obj.TranRecurrente,
+                                     TranRecurrenteFhLimite = obj.TranRecurrenteFhLimite,
                                      TranTipo = obj.TranTipo,
                                      TranCuenta = obj.TranCuenta
 
