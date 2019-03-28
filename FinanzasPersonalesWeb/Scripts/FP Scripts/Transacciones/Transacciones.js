@@ -1,7 +1,12 @@
 ﻿$(document).ready(function () {
-
+      
+    //$("[name=TranMonto]").mask("00,000,000.00", { reverse: true });
+   
     $("#createTransacciones").click(function () {
         $("#TransForm").trigger("reset");
+
+        $("[name=TranFh]").hide();
+        $("[name=TranFecha]").show();
 
         $(".modal-title").text("");
         $(".modal-title").text("Crear transacción");
@@ -20,6 +25,9 @@
     $(".editTransacciones").click(function () {
         $(".modal-title").text("");
         $(".modal-title").text("Editar transacción");
+
+        $("[name=TranFh]").show();
+        $("[name=TranFecha]").hide();
 
         var id = $(this).attr("TransId");
 
@@ -40,6 +48,9 @@
         $("#TransForm").trigger("reset");
 
         var id = $(this).attr("TransId");
+
+        $("[name=TranFh]").show();
+        $("[name=TranFecha]").hide();
 
         $(".modal-title").text("");
         $(".modal-title").text("Detalles transacción");
@@ -66,7 +77,7 @@
                     type: "json",
                     data: myData,
                     success: function (data) {
-                        console.log("Wiiiiiii" + data);
+                        
                     }
                 });
                 break;
@@ -78,9 +89,12 @@
                     type: "json",
                     data: myData,
                     success: function (data) {
-                        console.log("Wiiiiiii" + data);
+                     
                     }
                 });
+
+                $("[name=TranFh]").hide();
+                $("[name=TranFecha]").show();
                 break;
 
             default:
@@ -108,12 +122,12 @@
                
                 $("[name='TranId']").val(data.TranId);
                 $("[name='TranTipo']").val(data.TranTipo);
-                $("[name='TranFecha']").val(data.TranFecha);
+                $("[name='TranFh']").val(data.TranFh);
                 $("[name='TranMonto']").val(data.TranMonto);
                 $("[name='TranDescripcion']").val(data.TranDescripcion);
                 $("[name='TranCuenta']").val(data.TranCuenta);
                 $("[name='TranRecurrente']").val(data.TranRecurrente);
-                $("[name='TranRecurrenteFhLimite']").val(data.TranRecurrenteFhLimite);
+                $("[name='TranFhLimite']").val(data.TranFhLimite);
 
                 $("#TransModal").modal();
             }

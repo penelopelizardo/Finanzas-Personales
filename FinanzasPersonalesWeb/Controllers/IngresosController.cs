@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -20,73 +21,66 @@ namespace FinanzasPersonalesWeb.Controllers
             return View(db.Ingresos.ToList());
         }
 
-        // GET: Ingresos/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Ingresos ingresos = db.Ingresos.Find(id);
-            if (ingresos == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ingresos);
-        }
-
-        // GET: Ingresos/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Ingresos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IngresoId,IngresoDescripcion,IngresoMonto,IngresoFecha,IngresoRecurrente,IngresoRecurrenteFhLimite,IngresoTipo,IngresoCuenta")] Ingresos ingresos)
+        public JsonResult Create(Ingresos ingresos)
         {
+            ingresos.IngresoRecurrente = false;
+            ingresos.IngresoFecha = DateTime.Now; 
+            //CultureInfo culture = new CultureInfo("en-US");
+            //ingresos.IngresoFecha = DateTime.ParseExact(ingresos.IngresoFh, "dd/MM/yyyy HH:mm tt", culture);
+
+            ModelState.Remove("IngresoId");
+
             if (ModelState.IsValid)
             {
                 db.Ingresos.Add(ingresos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            return View(ingresos);
+            return Json(ingresos);
         }
 
         // GET: Ingresos/Edit/5
-        public ActionResult Edit(int? id)
+        public JsonResult GetIngresosById(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ingresos ingresos = db.Ingresos.Find(id);
+
+            var ingresos = (from t in db.Ingresos
+                            where t.IngresoId == id
+                            select t
+                                  ).ToList().Select(obj => new Ingresos
+                                  {
+                                      IngresoId = obj.IngresoId,
+                                      IngresoTipo = obj.IngresoTipo,
+                                      IngresoFh = obj.IngresoFecha.ToString(),
+                                      IngresoMonto = obj.IngresoMonto,
+                                      IngresoDescripcion = obj.IngresoDescripcion,
+                                      //IngresoRecurrente = obj.IngresoRecurrente,
+                                      //IngresoFhLimite = obj.IngresoRecurrenteFhLimite.ToString(),
+                                      IngresoCuenta = obj.IngresoCuenta
+
+                                  }).FirstOrDefault();
             if (ingresos == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
             }
-            return View(ingresos);
+            return Json(ingresos);
         }
 
         // POST: Ingresos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IngresoId,IngresoDescripcion,IngresoMonto,IngresoFecha,IngresoRecurrente,IngresoRecurrenteFhLimite,IngresoTipo,IngresoCuenta")] Ingresos ingresos)
+        public JsonResult Edit(Ingresos ingresos)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(ingresos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            return View(ingresos);
+            return Json(ingresos);
         }
 
         // GET: Ingresos/Delete/5
@@ -102,17 +96,6 @@ namespace FinanzasPersonalesWeb.Controllers
                 return HttpNotFound();
             }
             return View(ingresos);
-        }
-
-        // POST: Ingresos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Ingresos ingresos = db.Ingresos.Find(id);
-            db.Ingresos.Remove(ingresos);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

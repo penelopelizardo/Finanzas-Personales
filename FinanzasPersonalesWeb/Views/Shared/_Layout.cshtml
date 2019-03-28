@@ -31,8 +31,13 @@
 
     <link href="~/Content/air-datepicker/datepicker.css" rel="stylesheet" />
 
+    @*--------------------------MASK JS--------------------------*@
+    <script src="~/Scripts/maskjs.js"></script>
+
+
     @*--------------------------Script General del sistema--------------------------*@
     <script src="~/Scripts/FP Scripts/General.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
@@ -47,18 +52,31 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">@Html.ActionLink("Transacciones", "Index", "Transacciones", new { area = "" }, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Presupuesto", "Index", "Presupuesto", new { area = "" }, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Deudas", "Index", "Deudas", new { area = "" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Ingresos", "Index", "Ingresos", new { area = "" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Gastos", "Index", "Gastos", new { area = "" }, new { @class = "nav-link" })</li>
 
                 <!-- Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Dropdown link
+                        Otros
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Link 1</a>
-                        <a class="dropdown-item" href="#">Link 2</a>
-                        <a class="dropdown-item" href="#">Link 3</a>
+                        <a class="dropdown-item">@Html.ActionLink("Deudas", "Index", "Deudas", new { area = "" }, new { @class = "nav-link" })</a>
+                        <a class="dropdown-item">@Html.ActionLink("Presupuesto mensual", "Index", "Presupuesto", new { area = "" }, new { @class = "nav-link" })</a>
+                        <a class="dropdown-item">@Html.ActionLink("Presupuesto a largo plazo", "Index", "Presupuesto", new { area = "" }, new { @class = "nav-link" })</a>
+                        <a class="dropdown-item" href="#">Tarjetas</a>
+                    </div>
+                </li>
+                
+                <!-- Configuraciones -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Configuraciones
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item">@Html.ActionLink("Monedas", "Index", "Monedas", new { area = "" }, new { @class = "nav-link" })</a>
+                        <a class="dropdown-item">@Html.ActionLink("Tipos Ingresos", "Index", "Presupuesto", new { area = "" }, new { @class = "nav-link" })</a>
+                        <a class="dropdown-item">@Html.ActionLink("Tipos Gastos", "Index", "Presupuesto", new { area = "" }, new { @class = "nav-link" })</a>
                     </div>
                 </li>
             </ul>

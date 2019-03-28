@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using FinanzasPersonalesWeb.Models;
@@ -27,8 +29,18 @@ namespace FinanzasPersonalesWeb.Controllers
         public JsonResult Create(Transacciones transacciones)
         {
             transacciones.TranRecurrente = false;
-            //transacciones.TranFecha = DateTime.Now;
-                   
+
+            CultureInfo culture = new CultureInfo("en-US");
+            transacciones.TranFecha = DateTime.Now;
+            //transacciones.TranFecha = DateTime.ParseExact(transacciones.TranFh, "dd/MM/yyyy HH:mm tt", CultureInfo.InvariantCulture);
+            //transacciones.TranRecurrenteFhLimite = Convert.ToDateTime(transacciones.TranFhLimite);
+
+            //var monto = Regex.Replace(transacciones.TranMonto.ToString(), ",", "");
+
+            //transacciones.TranMonto = decimal.Parse(monto);
+
+            ModelState.Remove("TranId");
+
             if (ModelState.IsValid)
             {
                 db.Transacciones.Add(transacciones);
@@ -54,10 +66,10 @@ namespace FinanzasPersonalesWeb.Controllers
                                  {
                                      TranId = obj.TranId,
                                      TranDescripcion = obj.TranDescripcion,
-                                     TranFecha = obj.TranFecha,
+                                     TranFh = obj.TranFecha.ToString(),
                                      TranMonto = obj.TranMonto,
                                      TranRecurrente = obj.TranRecurrente,
-                                     TranRecurrenteFhLimite = obj.TranRecurrenteFhLimite,
+                                     TranFhLimite = obj.TranRecurrenteFhLimite.ToString(),
                                      TranTipo = obj.TranTipo,
                                      TranCuenta = obj.TranCuenta
 
@@ -81,19 +93,7 @@ namespace FinanzasPersonalesWeb.Controllers
             }
             return Json(transacciones);
         }
-
-        public JsonResult GetCuentas()
-        {
-            var resultado = (from t in db.Cuentas
-                             select t
-                          ).ToList().Select(obj => new Cuentas
-                          {
-                              CuentaId = obj.CuentaId,
-                              CuentaDescripcion = obj.CuentaDescripcion
-                          }).ToList();
-
-            return Json(resultado, JsonRequestBehavior.AllowGet);
-        }
+              
 
         protected override void Dispose(bool disposing)
         {

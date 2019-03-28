@@ -27,6 +27,12 @@ namespace FinanzasPersonalesWeb.Models
 
         [ForeignKey("Cuentas")]
         public int? TranCuenta { get; set; }
+        
+        [NotMapped]
+        public string TranFh { get; set; }
+
+        [NotMapped]
+        public string TranFhLimite { get; set; }
 
         public virtual Cuentas Cuentas { get; set; }
     }

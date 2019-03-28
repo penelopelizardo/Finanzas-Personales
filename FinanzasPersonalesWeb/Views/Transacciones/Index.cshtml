@@ -9,18 +9,13 @@
     <h2>Transacciones</h2>
 
 </div>
-<div class="row col-md-12" style="margin-top:10px">
+<div class="row col-md-12" style="margin-top:10px; margin-left:0px !important;padding-left:0px !important">
 
     <div class="col-md-1">
         <button type="button" class="btn btn-danger" id="createTransacciones">
-          Crear
+            Crear
         </button>
     </div>
-    @*<div class="col-md-1">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateModal">
-                            Ingresos
-            </button>
-      </div>*@
 </div>
 <div class="col-md-12" style="padding-bottom:20px;">
 
@@ -92,7 +87,7 @@
 
         }
     </tbody>
-    </table>
+</table>
 
 <!-- Modal Ingresos /Gastos -->
 <div class="modal" id="TransModal" actionType>
@@ -132,7 +127,8 @@
 
                     <div class="form-row col-md-12" style="padding-bottom: 5px;">
                         <label class="col-md-6">Fecha</label>
-                        <input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranFecha" data-language='es'/>
+                        <input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranFh" data-timepicker="true" data-language='es'  hidden/>
+                        <input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranFecha" data-timepicker="true" data-language='es' />
                     </div>
 
                     <div class="form-row col-md-12" style="padding-bottom: 5px;">
@@ -142,19 +138,19 @@
                         </select>
                     </div>
 
-                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
-                        <div class="form-check form-row col-md-6">
-                            <label class="form-check-label col-md-8">
-                                Es recurrente?
-                            </label>
-                            <input type="checkbox" class="form-check-input col-md-2 inputState" value="" name="TranRecurrente">
-                        </div>
+                    @*<div class="form-row col-md-12" style="padding-bottom: 5px;">
+            <div class="form-check form-row col-md-6">
+                <label class="form-check-label col-md-8">
+                    Es recurrente?
+                </label>
+                <input type="checkbox" class="form-check-input col-md-2 inputState" value="" name="TranRecurrente">
+            </div>
 
-                        <div class="form-row col-md-6" style="padding-bottom: 5px;">
-                            <label class="col-md-6">Día de corte</label>
-                            <input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranRecurrenteFhLimite" data-language='es' />
-                        </div>
-                    </div>
+            <div class="form-row col-md-6" style="padding-bottom: 5px;">
+                <label class="col-md-6">Día de corte</label>
+                <input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranFhLimite"  data-timepicker="true" data-language='es' />
+            </div>
+        </div>*@
 
                 </form>
             </div>

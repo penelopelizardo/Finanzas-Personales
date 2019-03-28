@@ -27,6 +27,12 @@ namespace FinanzasPersonalesWeb.Models
 
         public int? IngresoCuenta { get; set; }
 
+        [NotMapped]
+        public string IngresoFh { get; set; }
+
+        [NotMapped]
+        public string IngresoFhLimite { get; set; }
+
         public virtual Cuentas Cuentas { get; set; }
 
         public virtual TiposIngresos TiposIngresos { get; set; }
