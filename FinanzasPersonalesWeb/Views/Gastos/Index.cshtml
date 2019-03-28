@@ -1,69 +1,164 @@
 ﻿@model IEnumerable<FinanzasPersonalesWeb.Models.Gastos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Gastos";
 }
 
-<h2>Index</h2>
+<div class="card-header row">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Cuentas.CuentaDescripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TiposIngresos.TipoIngresoDescripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GastoDescripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GastoMonto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GastoFecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GastoRecurrente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GastoRecurrenteFhLimite)
-        </th>
-        <th></th>
-    </tr>
+    <h2>Gastos</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cuentas.CuentaDescripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TiposIngresos.TipoIngresoDescripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GastoDescripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GastoMonto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GastoFecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GastoRecurrente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GastoRecurrenteFhLimite)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GastoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GastoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GastoId })
-        </td>
-    </tr>
-}
+</div>
 
+<div class="row col-md-12" style="margin-top:10px; margin-left:0px !important;padding-left:0px !important">
+
+    <div class="col-md-1">
+        <button type="button" class="btn btn-danger" id="createGastos">
+            Crear
+        </button>
+    </div>
+</div>
+<div class="col-md-12" style="padding-bottom:20px;">
+
+</div>
+<table class=" table table-striped" id="GasT">
+    <thead>
+        <tr>
+            <th>
+                Cuenta
+            </th>
+
+            <th>
+                Descripción
+            </th>
+            <th>
+                Monto
+            </th>
+            <th>
+                Fecha
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.GastoRecurrente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GastoRecurrenteFhLimite)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cuentas.CuentaDescripcion)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.GastoTipo)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.GastoDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GastoMonto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GastoFecha)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.GastoRecurrente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GastoRecurrenteFhLimite)
+                    </td>*@
+                <td>
+                    <button type="button" class="btn btn-warning  editGastos" GasId="@item.GastoId">
+                        Editar
+                    </button>
+
+                    <button type="button" class="btn btn-info detailsGastos" GasId="@item.GastoId">
+                        Detalles
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<!-- Modal Ingresos /Gastos -->
+<div class="modal" id="GastosModal" actionType>
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- Modal body -->
+                <form id="GastosForm">
+                    <input type="hidden" name="GastoId" value="" />
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-6">Tipo de gasto</label>
+                        <select class="custom-select col-md-6 tipoGastos inputState" name="GastoTipo">
+                            <option selected>--Seleccione--</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-3">Monto</label>
+                        <input type="text" class="form-control col-md-9 inputState" name="GastoMonto" />
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-6">Descripción</label>
+                        <input type="text" class="form-control col-md-6 inputState" name="GastoDescripcion" />
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-6">Fecha</label>
+                        <input type="text" class="form-control col-md-6 inputState datepicker-here" name="GastoFh" data-timepicker="true" data-language='es' hidden />
+                        <input type="text" class="form-control col-md-6 inputState datepicker-here" name="GastoFecha" data-timepicker="true" data-language='es' />
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-3">Cuenta</label>
+                        <select class="custom-select  col-md-9 cuenta inputState" name="GastoCuenta">
+                            <option selected>--Seleccione--</option>
+                        </select>
+                    </div>
+
+                    @*<div class="form-row col-md-12" style="padding-bottom: 5px;">
+                            <div class="form-check form-row col-md-6">
+                                <label class="form-check-label col-md-8">
+                                    Es recurrente?
+                                </label>
+                                <input type="checkbox" class="form-check-input col-md-2 inputState" value="" name="GastoRecurrente">
+                            </div>
+
+                            <div class="form-row col-md-6" style="padding-bottom: 5px;">
+                                <label class="col-md-6">Día de corte</label>
+                                <input type="text" class="form-control col-md-6 inputState datepicker-here" name="GastoFhLimite"  data-timepicker="true" data-language='es' />
+                            </div>
+                        </div>*@
+
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" id="btn-limpiar">Limpiar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="btn-crear">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/FP Scripts/FillingDropdowns.js"></script>
+<script src="~/Scripts/FP Scripts/Gastos/Gastos.js"></script>

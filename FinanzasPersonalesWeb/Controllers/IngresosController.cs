@@ -68,7 +68,7 @@ namespace FinanzasPersonalesWeb.Controllers
             {
                 //return HttpNotFound();
             }
-            return Json(ingresos);
+            return Json(ingresos, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Ingresos/Edit/5

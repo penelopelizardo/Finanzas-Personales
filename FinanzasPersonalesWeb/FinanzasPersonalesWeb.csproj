@@ -338,6 +338,7 @@
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\FP Scripts\FillingDropdowns.js" />
+    <Content Include="Scripts\FP Scripts\Gastos\Gastos.js" />
     <Content Include="Scripts\FP Scripts\General.js" />
     <Content Include="Scripts\FP Scripts\Ingresos\Ingresos.js" />
     <Content Include="Scripts\FP Scripts\Transacciones\Transacciones.js" />

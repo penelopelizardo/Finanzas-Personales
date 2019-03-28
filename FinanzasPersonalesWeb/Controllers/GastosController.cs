@@ -21,81 +21,66 @@ namespace FinanzasPersonalesWeb.Controllers
             return View(gastos.ToList());
         }
 
-        // GET: Gastos/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Gastos gastos = db.Gastos.Find(id);
-            if (gastos == null)
-            {
-                return HttpNotFound();
-            }
-            return View(gastos);
-        }
-
-        // GET: Gastos/Create
-        public ActionResult Create()
-        {
-            ViewBag.GastoCuenta = new SelectList(db.Cuentas, "CuentaId", "CuentaDescripcion");
-            ViewBag.GastoTipo = new SelectList(db.TiposIngresos, "TipoIngresoId", "TipoIngresoDescripcion");
-            return View();
-        }
-
         // POST: Gastos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GastoId,GastoDescripcion,GastoMonto,GastoFecha,GastoRecurrente,GastoRecurrenteFhLimite,GastoTipo,GastoCuenta")] Gastos gastos)
+        public JsonResult Create(Gastos gastos)
         {
+            gastos.GastoRecurrente = false;
+            gastos.GastoFecha = DateTime.Now;
+
+            ModelState.Remove("GastoId");
+
             if (ModelState.IsValid)
             {
                 db.Gastos.Add(gastos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            ViewBag.GastoCuenta = new SelectList(db.Cuentas, "CuentaId", "CuentaDescripcion", gastos.GastoCuenta);
-            ViewBag.GastoTipo = new SelectList(db.TiposIngresos, "TipoIngresoId", "TipoIngresoDescripcion", gastos.GastoTipo);
-            return View(gastos);
+            return Json(gastos);
         }
 
         // GET: Gastos/Edit/5
-        public ActionResult Edit(int? id)
+        public JsonResult GetGastosById(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Gastos gastos = db.Gastos.Find(id);
+            //Gastos gastos = db.Gastos.Find(id);
+
+            var gastos = (from t in db.Gastos
+                          where t.GastoId == id
+                          select t
+                                 ).ToList().Select(obj => new Gastos
+                                 {
+                                     GastoId = obj.GastoId,
+                                     GastoDescripcion = obj.GastoDescripcion,
+                                     GastoFecha = obj.GastoFecha,
+                                     GastoMonto = obj.GastoMonto,
+                                     GastoRecurrente = obj.GastoRecurrente,
+                                     GastoRecurrenteFhLimite = obj.GastoRecurrenteFhLimite,
+                                     GastoTipo = obj.GastoTipo,
+                                     GastoCuenta = obj.GastoCuenta
+
+                                 }).FirstOrDefault();
             if (gastos == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
             }
-            ViewBag.GastoCuenta = new SelectList(db.Cuentas, "CuentaId", "CuentaDescripcion", gastos.GastoCuenta);
-            ViewBag.GastoTipo = new SelectList(db.TiposIngresos, "TipoIngresoId", "TipoIngresoDescripcion", gastos.GastoTipo);
-            return View(gastos);
+            return Json(gastos, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Gastos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GastoId,GastoDescripcion,GastoMonto,GastoFecha,GastoRecurrente,GastoRecurrenteFhLimite,GastoTipo,GastoCuenta")] Gastos gastos)
+        public JsonResult Edit(Gastos gastos)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(gastos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            ViewBag.GastoCuenta = new SelectList(db.Cuentas, "CuentaId", "CuentaDescripcion", gastos.GastoCuenta);
-            ViewBag.GastoTipo = new SelectList(db.TiposIngresos, "TipoIngresoId", "TipoIngresoDescripcion", gastos.GastoTipo);
-            return View(gastos);
+           
+            return Json(gastos);
         }
 
         // GET: Gastos/Delete/5
