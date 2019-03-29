@@ -112,6 +112,9 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -123,6 +126,12 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -200,10 +209,12 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CuentasController.cs" />
     <Compile Include="Controllers\DeudasController.cs" />
     <Compile Include="Controllers\GastosController.cs" />
+    <Compile Include="Controllers\GenericController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -234,6 +245,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\air-datepicker\datepicker.css" />
+    <Content Include="Content\air-datepicker\datepicker.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -257,6 +270,23 @@
     <Content Include="Content\DataTables-1.10.18\images\sort_both.png" />
     <Content Include="Content\DataTables-1.10.18\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.10.18\images\sort_desc_disabled.png" />
+    <Content Include="Scripts\air-datepicker\datepicker.js" />
+    <Content Include="Scripts\air-datepicker\datepicker.min.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.cs.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.da.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.de.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.en.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.es.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.fi.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.fr.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.hu.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.nl.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.pl.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.pt-BR.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.pt.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.ro.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.sk.js" />
+    <Content Include="Scripts\air-datepicker\i18n\datepicker.zh.js" />
     <Content Include="Scripts\Datatables\dataTables.bootstrap.js" />
     <Content Include="Scripts\Datatables\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\Datatables\dataTables.bootstrap4.js" />
@@ -308,7 +338,9 @@
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\FP Scripts\FillingDropdowns.js" />
+    <Content Include="Scripts\FP Scripts\Gastos\Gastos.js" />
     <Content Include="Scripts\FP Scripts\General.js" />
+    <Content Include="Scripts\FP Scripts\Ingresos\Ingresos.js" />
     <Content Include="Scripts\FP Scripts\Transacciones\Transacciones.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -319,6 +351,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\maskjs.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -339,8 +372,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -362,10 +393,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Ingresos\Create.cshtml" />
-    <Content Include="Views\Ingresos\Delete.cshtml" />
-    <Content Include="Views\Ingresos\Details.cshtml" />
-    <Content Include="Views\Ingresos\Edit.cshtml" />
     <Content Include="Views\Ingresos\Index.cshtml" />
     <Content Include="Views\TiposIngresos\Create.cshtml" />
     <Content Include="Views\TiposIngresos\Delete.cshtml" />
@@ -407,10 +434,6 @@
     <Content Include="Views\TransaccionesTipos\Details.cshtml" />
     <Content Include="Views\TransaccionesTipos\Edit.cshtml" />
     <Content Include="Views\TransaccionesTipos\Index.cshtml" />
-    <Content Include="Views\Transacciones\Create.cshtml" />
-    <Content Include="Views\Transacciones\Delete.cshtml" />
-    <Content Include="Views\Transacciones\Details.cshtml" />
-    <Content Include="Views\Transacciones\Edit.cshtml" />
     <Content Include="Views\Transacciones\Index.cshtml" />
     <Content Include="Views\Monedas\Create.cshtml" />
     <Content Include="Views\Monedas\Delete.cshtml" />

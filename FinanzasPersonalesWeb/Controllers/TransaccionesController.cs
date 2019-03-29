@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using FinanzasPersonalesWeb.Models;
@@ -20,14 +22,24 @@ namespace FinanzasPersonalesWeb.Controllers
             var transacciones = db.Transacciones.Include(t => t.Cuentas).ToList();
             return View(transacciones);
         }
-             
+
 
         // POST: Transacciones/Create
         [HttpPost]
         public JsonResult Create(Transacciones transacciones)
         {
             transacciones.TranRecurrente = false;
+
+            CultureInfo culture = new CultureInfo("en-US");
             transacciones.TranFecha = DateTime.Now;
+            //transacciones.TranFecha = DateTime.ParseExact(transacciones.TranFh, "dd/MM/yyyy HH:mm tt", CultureInfo.InvariantCulture);
+            //transacciones.TranRecurrenteFhLimite = Convert.ToDateTime(transacciones.TranFhLimite);
+
+            //var monto = Regex.Replace(transacciones.TranMonto.ToString(), ",", "");
+
+            //transacciones.TranMonto = decimal.Parse(monto);
+
+            ModelState.Remove("TranId");
 
             if (ModelState.IsValid)
             {
@@ -40,9 +52,9 @@ namespace FinanzasPersonalesWeb.Controllers
         }
 
         // GET: Transacciones/Edit/5
-        public JsonResult Edit(int? id)
+        public JsonResult GetTransactionsById(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -52,11 +64,12 @@ namespace FinanzasPersonalesWeb.Controllers
                                  select t
                                  ).ToList().Select(obj => new Transacciones
                                  {
-                                    TranDescripcion = obj.TranDescripcion,
-                                     TranFecha=  obj.TranFecha,
-                                     TranMonto= obj.TranMonto,
-                                     TranRecurrente= obj.TranRecurrente,
-                                     TranRecurrenteFhLimite =  obj.TranRecurrenteFhLimite,
+                                     TranId = obj.TranId,
+                                     TranDescripcion = obj.TranDescripcion,
+                                     TranFh = obj.TranFecha.ToString(),
+                                     TranMonto = obj.TranMonto,
+                                     TranRecurrente = obj.TranRecurrente,
+                                     TranFhLimite = obj.TranRecurrenteFhLimite.ToString(),
                                      TranTipo = obj.TranTipo,
                                      TranCuenta = obj.TranCuenta
 
@@ -80,19 +93,7 @@ namespace FinanzasPersonalesWeb.Controllers
             }
             return Json(transacciones);
         }
-
-        public JsonResult GetCuentas()
-        {
-            var resultado = (from t in db.Cuentas
-                             select t
-                          ).ToList().Select(obj => new Cuentas
-                          {
-                              CuentaId = obj.CuentaId,
-                              CuentaDescripcion = obj.CuentaDescripcion
-                          }).ToList();
-
-            return Json(resultado, JsonRequestBehavior.AllowGet);
-        }
+              
 
         protected override void Dispose(bool disposing)
         {

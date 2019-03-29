@@ -1,6 +1,13 @@
 ﻿$(document).ready(function () {
-
+      
+    //$("[name=TranMonto]").mask("00,000,000.00", { reverse: true });
+   
     $("#createTransacciones").click(function () {
+        $("#TransForm").trigger("reset");
+
+        $("[name=TranFh]").hide();
+        $("[name=TranFecha]").show();
+
         $(".modal-title").text("");
         $(".modal-title").text("Crear transacción");
 
@@ -8,42 +15,42 @@
         $("#TransModal").attr("actionType", "create");
 
         $("#btn-crear").show();
+        $("#btn-limpiar").show();
+
+        $(".inputState").attr("disabled", false);
+
         $("#TransModal").modal();
     });
-    
+
     $(".editTransacciones").click(function () {
         $(".modal-title").text("");
         $(".modal-title").text("Editar transacción");
 
-        $("#btn-crear").show();
-        $("#btn-limpiar").show();
+        $("[name=TranFh]").show();
+        $("[name=TranFecha]").hide();
 
         var id = $(this).attr("TransId");
 
-        $.ajax({
-            url: "/Transacciones/Edit",
-            method: 'GET',
-            type: "json",
-            data: { id: parseInt(id) },
-            success: function (data) {
+        $("#TransModal").attr("actionType", "");
+        $("#TransModal").attr("actionType", "edit");
 
-                console.log(data);
-                console.log(data.TranTipo);
+        $("#btn-crear").show();
+        $("#btn-limpiar").show();
 
-                $("[name='TranTipo']").val(data.TranTipo);
-                $("[name='TranMonto']").val(data.TranMonto);
-                $("[name='TranDescripcion']").val(data.TranDescripcion);
-                $("[name='TranCuenta']").val(data.TranCuenta);
-                $("[name='TranRecurrente']").val(data.TranRecurrente);
-                $("[name='TranRecurrenteFhLimite']").val(data.TranRecurrenteFhLimite);
+        $(".inputState").attr("disabled", false);
 
-                $("#TransModal").modal();
-            }
-        });
+        displayTransactionsById(id);
 
     });
 
     $(".detailsTransacciones").click(function () {
+
+        $("#TransForm").trigger("reset");
+
+        var id = $(this).attr("TransId");
+
+        $("[name=TranFh]").show();
+        $("[name=TranFecha]").hide();
 
         $(".modal-title").text("");
         $(".modal-title").text("Detalles transacción");
@@ -51,20 +58,14 @@
         $("#btn-crear").hide();
         $("#btn-limpiar").hide();
 
-        $.ajax({
-            url: "/Transacciones/GetCuentas",
-            method: 'GET',
-            type: "json",
-            data: $("#TransId").val(),
-            success: function (data) {
+        displayTransactionsById(id);
 
-            }
-        });
-        $("#TransModal").modal();
+        $(".inputState").attr("disabled", true);
+
     });
 
     $("#btn-crear").click(function () {
-
+    
         var action = $("#TransModal").attr("actionType");
         var myData = $("#TransForm").serialize();
 
@@ -76,7 +77,7 @@
                     type: "json",
                     data: myData,
                     success: function (data) {
-                        console.log("Wiiiiiii" + data);
+                        
                     }
                 });
                 break;
@@ -88,9 +89,12 @@
                     type: "json",
                     data: myData,
                     success: function (data) {
-                        console.log("Wiiiiiii" + data);
+                     
                     }
                 });
+
+                $("[name=TranFh]").hide();
+                $("[name=TranFecha]").show();
                 break;
 
             default:
@@ -98,4 +102,35 @@
         }
 
     });
+
+    $("#btn-limpiar").click(function () {
+
+        //$("#TransForm")[0].reset();
+
+        $("#TransForm").trigger("reset");
+
+    });
+
+    function displayTransactionsById(id) {
+
+        $.ajax({
+            url: "/Transacciones/GetTransactionsById",
+            method: 'GET',
+            type: "json",
+            data: { id: parseInt(id) },
+            success: function (data) {
+               
+                $("[name='TranId']").val(data.TranId);
+                $("[name='TranTipo']").val(data.TranTipo);
+                $("[name='TranFh']").val(data.TranFh);
+                $("[name='TranMonto']").val(data.TranMonto);
+                $("[name='TranDescripcion']").val(data.TranDescripcion);
+                $("[name='TranCuenta']").val(data.TranCuenta);
+                $("[name='TranRecurrente']").val(data.TranRecurrente);
+                $("[name='TranFhLimite']").val(data.TranFhLimite);
+
+                $("#TransModal").modal();
+            }
+        });
+    }
 });

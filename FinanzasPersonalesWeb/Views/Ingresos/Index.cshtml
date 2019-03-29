@@ -1,69 +1,161 @@
 ﻿@model IEnumerable<FinanzasPersonalesWeb.Models.Ingresos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Ingresos";
 }
 
-<h2>Index</h2>
+<div class="card-header row">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IngresoDescripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IngresoMonto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IngresoFecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IngresoRecurrente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IngresoRecurrenteFhLimite)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IngresoTipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IngresoCuenta)
-        </th>
-        <th></th>
-    </tr>
+    <h2>Ingresos</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IngresoDescripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IngresoMonto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IngresoFecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IngresoRecurrente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IngresoRecurrenteFhLimite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IngresoTipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IngresoCuenta)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IngresoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IngresoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IngresoId })
-        </td>
-    </tr>
-}
+</div>
 
+<div class="row col-md-12" style="margin-top:10px; margin-left:0px !important;padding-left:0px !important">
+
+    <div class="col-md-1">
+        <button type="button" class="btn btn-danger" id="createIngresos">
+            Crear
+        </button>
+    </div>
+</div>
+<div class="col-md-12" style="padding-bottom:20px;">
+
+</div>
+
+<table class="table table-striped" id="IngT">
+    <thead>
+        <tr>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Monto
+            </th>
+            <th>
+                Fecha
+            </th>
+            @*<th>
+                 Ingreso Recurrente
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.IngresoRecurrenteFhLimite)
+                </th>*@
+            <th>
+                Tipo Ingreso
+            </th>
+            <th>
+                Cuenta
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IngresoDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IngresoMonto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IngresoFecha)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.IngresoRecurrente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IngresoRecurrenteFhLimite)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.TiposIngresos.TipoIngresoDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cuentas.CuentaDescripcion)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning  editIngresos" IngId="@item.IngresoId">
+                        Editar
+                    </button>
+
+                    <button type="button" class="btn btn-info detailsIngresos" IngId="@item.IngresoId">
+                        Detalles
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<!-- Modal Ingresos /Gastos -->
+<div class="modal" id="IngModal" actionType>
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- Modal body -->
+                <form id="IngForm">
+                    <input type="hidden" name="IngresoId" value="" />
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-6">Tipo de Ingreso</label>
+                        <select class="custom-select col-md-6 tipoIngresos inputState" name="IngresoTipo">
+                            <option selected>--Seleccione--</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <div class="form-row col-md-7">
+                        </div>
+                        <div class="form-row col-md-5">
+                            <a href="">(Nuevo tipo ingreso)</a>
+                        </div>
+                    </div>
+
+                        <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                            <label class="col-md-3">Monto</label>
+                            <input type="text" class="form-control col-md-9 inputState" name="IngresoMonto" />
+                        </div>
+
+                        <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                            <label class="col-md-6">Descripción</label>
+                            <input type="text" class="form-control col-md-6 inputState" name="IngresoDescripcion" />
+                        </div>
+
+                        <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                            <label class="col-md-6">Fecha</label>
+                            <input type="text" class="form-control col-md-6 inputState datepicker-here" name="IngresoFh" data-timepicker="true" data-language='es' />
+                        </div>
+
+                        <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                            <label class="col-md-3">Cuenta</label>
+                            <select class="custom-select  col-md-9 cuenta inputState" name="IngresoCuenta">
+                                <option selected>--Seleccione--</option>
+                            </select>
+                        </div>
+
+</form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" id="btn-limpiar">Limpiar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="btn-crear">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/FP Scripts/FillingDropdowns.js"></script>
+<script src="~/Scripts/FP Scripts/Ingresos/Ingresos.js"></script>
+
