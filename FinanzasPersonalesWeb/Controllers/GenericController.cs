@@ -55,5 +55,18 @@ namespace FinanzasPersonalesWeb.Controllers
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetMonedas()
+        {
+            var resultado = (from t in db.Monedas
+                             select t
+                          ).ToList().Select(obj => new Monedas
+                          {
+                              MonedaId = obj.MonedaId,
+                              MonedaDescripcion = obj.MonedaDescripcion
+                          }).ToList();
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

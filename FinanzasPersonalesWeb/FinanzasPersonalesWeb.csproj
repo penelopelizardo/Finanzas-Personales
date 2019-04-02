@@ -341,6 +341,7 @@
     <Content Include="Scripts\FP Scripts\Gastos\Gastos.js" />
     <Content Include="Scripts\FP Scripts\General.js" />
     <Content Include="Scripts\FP Scripts\Ingresos\Ingresos.js" />
+    <Content Include="Scripts\FP Scripts\Deudas\Deudas.js" />
     <Content Include="Scripts\FP Scripts\Transacciones\Transacciones.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

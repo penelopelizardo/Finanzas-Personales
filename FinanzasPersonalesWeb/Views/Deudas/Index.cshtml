@@ -4,54 +4,153 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="card-header row">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Monedas.MonedaDescripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeudaDescripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeudaMonto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeudaEstado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeudaFhCreacion)
-        </th>
-        <th></th>
-    </tr>
+    <h2>Deudas</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Monedas.MonedaDescripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeudaDescripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeudaMonto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeudaEstado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeudaFhCreacion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DeudaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DeudaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DeudaId })
-        </td>
-    </tr>
-}
+</div>
+<div class="row col-md-12" style="margin-top:10px; margin-left:0px !important;padding-left:0px !important">
+
+    <div class="col-md-1">
+        <button type="button" class="btn btn-danger" id="createDeudas">
+            Crear
+        </button>
+    </div>
+</div>
+<div class="col-md-12" style="padding-bottom:20px;">
+
+</div>
+<table class="table table-striped" id="DeuT">
+    <thead>
+        <tr>
+            <th>
+                Moneda
+            </th>
+            <th>
+                Deuda Descripcion
+            </th>
+            <th>
+                Monto
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Fecha deuda
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monedas.MonedaDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeudaDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeudaMonto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeudaEstado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeudaFhCreacion)
+                </td>
+
+                <td>
+                    <button type="button" class="btn btn-warning  editTransacciones" TransId="@item.DeudaId">
+                        Editar
+                    </button>
+
+                    <button type="button" class="btn btn-info detailsTransacciones" TransId="@item.DeudaId">
+                        Detalles
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
+
+
+<!-- Modal Ingresos /Gastos -->
+<div class="modal" id="DeudaModal" actionType>
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- Modal body -->
+                <form id="DeudaForm">
+                    <input type="hidden" name="DeudaId" value="" />
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-6">Moneda</label>
+                        <select class="custom-select col-md-6 moneda inputState" name="CuentaTipoMoneda">
+                            <option selected>--Seleccione--</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-3">Monto</label>
+                        <input type="text" class="form-control col-md-9 inputState" name="DeudaMonto" />
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-6">Descripción</label>
+                        <input type="text" class="form-control col-md-6 inputState" name="DeudaDescripcion" />
+                    </div>
+
+                    <div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-6">Fecha</label>
+                        <input type="text" class="form-control col-md-6 inputState datepicker-here" name="DeudaFhCreacion" data-timepicker="true" data-language='es'/>
+                        @*<input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranFecha" data-timepicker="true" data-language='es' />*@
+                    </div>
+
+                    @*<div class="form-row col-md-12" style="padding-bottom: 5px;">
+                        <label class="col-md-3">Cuenta</label>
+                        <select class="custom-select  col-md-9 cuenta inputState" name="TranCuenta">
+                            <option selected>--Seleccione--</option>
+                        </select>
+                    </div>*@
+
+                    @*<div class="form-row col-md-12" style="padding-bottom: 5px;">
+                            <div class="form-check form-row col-md-6">
+                                <label class="form-check-label col-md-8">
+                                    Es recurrente?
+                                </label>
+                                <input type="checkbox" class="form-check-input col-md-2 inputState" value="" name="TranRecurrente">
+                            </div>
+
+                            <div class="form-row col-md-6" style="padding-bottom: 5px;">
+                                <label class="col-md-6">Día de corte</label>
+                                <input type="text" class="form-control col-md-6 inputState datepicker-here" name="TranFhLimite"  data-timepicker="true" data-language='es' />
+                            </div>
+                        </div>*@
+
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" id="btn-limpiar">Limpiar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="btn-crear">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/FP Scripts/FillingDropdowns.js"></script>
+<script src="~/Scripts/FP Scripts/Deudas/Deudas.js"></script>

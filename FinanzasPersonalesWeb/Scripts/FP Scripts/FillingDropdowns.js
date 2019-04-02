@@ -36,5 +36,19 @@
             });
 
         }
-    })
+    });
+
+
+    $.ajax({
+        url: "/Generic/GetMonedas",
+        method: 'GET',
+        type: "json",
+        success: function (data) {
+            $(".moneda option:not(:first)").remove();
+            $.each(data, function (row) {
+                $(".moneda").append("<option value='" + data[row].MonedaId + "'>" + data[row].MonedaDescripcion + "</option>")
+            });
+
+        }
+    });
 });
